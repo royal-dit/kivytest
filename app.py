@@ -43,7 +43,6 @@ initial_distance = 2.0  # Example: 2 meters
 # Initialize the text-to-speech engine
 engine = pyttsx3.init()
 
-# ... (rest of the code)
 class MainScreen(Screen):
     pass
 class RealTimeObjectDetectionApp(App):
@@ -79,7 +78,6 @@ class RealTimeObjectDetectionApp(App):
         if self.is_detecting:
             ret, frame = self.camera.read()
             if ret:
-                # ... (previous code)
                 # Resize image to YOLO network size (YOLOv3 uses input size of 416x416)
                 height, width = frame.shape[:2]
                 blob = cv2.dnn.blobFromImage(frame, 1 / 255.0, (416, 416), swapRB=True, crop=False)
@@ -91,7 +89,7 @@ class RealTimeObjectDetectionApp(App):
                 detections = yolo_net.forward(output_layer_names)
 
 
-                # Process detections
+              
                 distances = []
                 class_ids = []
                 confidences = []
@@ -102,7 +100,7 @@ class RealTimeObjectDetectionApp(App):
                         class_id = np.argmax(scores)
                         confidence = scores[class_id]
 
-                        # ... (previous code)
+                    
                           # Filter out weak detections (confidence threshold)
                         if confidence > conf_threshold:
                             center_x = int(obj[0] * width)
@@ -118,13 +116,12 @@ class RealTimeObjectDetectionApp(App):
                             confidences.append(float(confidence))
                             boxes.append([x, y, w, h])
 
-                            # Calculate the distance using triangulation
 
                             # Calculate the distance using triangulation
                             distance = initial_distance * math.sqrt(w * h / (width * height))
                             distances.append(distance)
 
-                # ... (previous code)
+                
                 # Apply non-maximum suppression to remove overlapping boxes
                 nms_indices = cv2.dnn.NMSBoxes(boxes, confidences, conf_threshold, 0.4)
 
@@ -143,7 +140,7 @@ class RealTimeObjectDetectionApp(App):
                     engine.say(classes[class_id])
                     engine.runAndWait()
 
-                # ... (previous code)
+                
                   # Convert the frame to texture and display it in Kivy Image widget
                 buf1 = cv2.flip(frame, 0)
                 buf = buf1.tostring()
@@ -157,4 +154,4 @@ class RealTimeObjectDetectionApp(App):
 if __name__ == '__main__':
     RealTimeObjectDetectionApp().run()
 
-# ... (rest of the code)
+
