@@ -46,7 +46,7 @@ engine = pyttsx3.init()
 class MainScreen(Screen):
     pass
 class RealTimeObjectDetectionApp(App):
-    # ... (previous code)
+    
     def build(self):
         self.screen_manager = ScreenManager()
         self.main_screen = MainScreen(name="main")
